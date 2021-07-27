@@ -39,6 +39,11 @@ class Journaliste
      */
     private $articles;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Journal::class, inversedBy="journalistes")
+     */
+    private $journal;
+
     public function __construct()
     {
         $this->personnalite = new ArrayCollection();
@@ -124,6 +129,18 @@ class Journaliste
                 $article->setJournaliste(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getJournal(): ?Journal
+    {
+        return $this->journal;
+    }
+
+    public function setJournal(?Journal $journal): self
+    {
+        $this->journal = $journal;
 
         return $this;
     }
