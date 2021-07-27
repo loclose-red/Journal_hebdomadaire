@@ -34,9 +34,15 @@ class Journaliste
      */
     private $personnalite;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="journaliste")
+     */
+    private $articles;
+
     public function __construct()
     {
         $this->personnalite = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,6 +94,36 @@ class Journaliste
     public function removePersonnalite(Personnalite $personnalite): self
     {
         $this->personnalite->removeElement($personnalite);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setJournaliste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getJournaliste() === $this) {
+                $article->setJournaliste(null);
+            }
+        }
 
         return $this;
     }

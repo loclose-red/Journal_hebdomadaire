@@ -27,6 +27,11 @@ class Article
      */
     private $contenu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Journaliste::class, inversedBy="articles")
+     */
+    private $journaliste;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Article
     public function setContenu(string $contenu): self
     {
         $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getJournaliste(): ?Journaliste
+    {
+        return $this->journaliste;
+    }
+
+    public function setJournaliste(?Journaliste $journaliste): self
+    {
+        $this->journaliste = $journaliste;
 
         return $this;
     }
