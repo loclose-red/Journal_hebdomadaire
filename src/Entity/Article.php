@@ -32,6 +32,11 @@ class Article
      */
     private $journaliste;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Edition::class, inversedBy="articles")
+     */
+    private $edition;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Article
     public function setJournaliste(?Journaliste $journaliste): self
     {
         $this->journaliste = $journaliste;
+
+        return $this;
+    }
+
+    public function getEdition(): ?Edition
+    {
+        return $this->edition;
+    }
+
+    public function setEdition(?Edition $edition): self
+    {
+        $this->edition = $edition;
 
         return $this;
     }
