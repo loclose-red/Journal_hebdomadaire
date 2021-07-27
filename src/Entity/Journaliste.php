@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JournalisteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class Journaliste
      * @ORM\Column(type="date", nullable=true)
      */
     private $dateNaiss;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Personnalite::class, inversedBy="journalistes")
+     */
+    private $personnalite;
+
+    public function __construct()
+    {
+        $this->personnalite = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,30 @@ class Journaliste
     public function setDateNaiss(?\DateTimeInterface $dateNaiss): self
     {
         $this->dateNaiss = $dateNaiss;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Personnalite[]
+     */
+    public function getPersonnalite(): Collection
+    {
+        return $this->personnalite;
+    }
+
+    public function addPersonnalite(Personnalite $personnalite): self
+    {
+        if (!$this->personnalite->contains($personnalite)) {
+            $this->personnalite[] = $personnalite;
+        }
+
+        return $this;
+    }
+
+    public function removePersonnalite(Personnalite $personnalite): self
+    {
+        $this->personnalite->removeElement($personnalite);
 
         return $this;
     }
