@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Journal{% endblock %}
+
+{% block body %}
+    <h1>Journal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ journal.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ journal.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ journal.adresse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('journal_index') }}">back to list</a>
+
+    <a href="{{ path('journal_edit', {'id': journal.id}) }}">edit</a>
+
+    {{ include('journal/_delete_form.html.twig') }}
+{% endblock %}

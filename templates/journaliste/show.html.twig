@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Journaliste{% endblock %}
+
+{% block body %}
+    <h1>Journaliste</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ journaliste.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ journaliste.nom }}</td>
+            </tr>
+            <tr>
+                <th>DateNaiss</th>
+                <td>{{ journaliste.dateNaiss ? journaliste.dateNaiss|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('journaliste_index') }}">back to list</a>
+
+    <a href="{{ path('journaliste_edit', {'id': journaliste.id}) }}">edit</a>
+
+    {{ include('journaliste/_delete_form.html.twig') }}
+{% endblock %}

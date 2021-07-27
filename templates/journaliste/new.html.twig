@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Journaliste{% endblock %}
+
+{% block body %}
+    <h1>Create new Journaliste</h1>
+
+    {{ include('journaliste/_form.html.twig') }}
+
+    <a href="{{ path('journaliste_index') }}">back to list</a>
+{% endblock %}
